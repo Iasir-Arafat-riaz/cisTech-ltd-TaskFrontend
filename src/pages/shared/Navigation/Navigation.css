@@ -1,0 +1,31 @@
+.navigation a{
+    text-decoration: none;
+    margin-right: 15px;
+    color: aliceblue;
+   }
+   #com{
+       margin: 0 50px;
+       color: rgb(233, 141, 233);
+       
+   }
+   .navigation button{
+       margin-right: 30px;
+       margin-left: 10px;
+   }
+   .logoutButton{
+       background-color: red;
+       color: white;
+       border-radius: 5px;
+       border: 0px;
+   }
+   .loginButton{
+       color: rgb(24, 6, 6);
+       border-radius: 5px;
+       border: 0px;
+       background-color: greenyellow;
+   }
+   .userName{
+       display: flex;
+       align-items: center;
+       justify-content: center;
+   }

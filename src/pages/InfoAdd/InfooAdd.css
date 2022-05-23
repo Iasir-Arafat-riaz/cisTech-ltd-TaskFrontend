@@ -1,0 +1,19 @@
+.addForm{
+    display: flex;
+    flex-direction: column;
+  
+}
+.addForm input, label {
+    width: 40%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    padding: 5px;
+   
+   
+}
+.addForm input{
+    background-color: bisque;
+    border: 0px;
+}
