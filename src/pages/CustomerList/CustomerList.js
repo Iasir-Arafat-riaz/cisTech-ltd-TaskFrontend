@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
+import Loader from "../shared/Loader/Loader";
 import "./CustomerList.css";
 const customerList = [
   {
@@ -28,13 +29,16 @@ const CustomerList = () => {
   const [details, setDetails] = useState([]);
   const [data, setData] = useState([]);
   const [searchDetals, setSearchDetails] = useState("");
+  const [loading,setLoading]=useState(true)
 
   useEffect(() => {
+    setLoading(true)
     fetch("https://peaceful-plains-87228.herokuapp.com/customerDetails")
       .then((res) => res.json())
       .then((data) => {
         setDetails([...data])
         setData([...data])
+        setLoading(false)
       });
   }, []);
   
@@ -74,6 +78,9 @@ const CustomerList = () => {
         });
     }
   };
+  if(loading){
+    return <Loader/>
+  }
 
   return (
     <div className="mb-5">

@@ -14,6 +14,7 @@ import CustomerList from './pages/CustomerList/CustomerList';
 import Login from './pages/Login/Login';
 import Register from './pages/Login/Register/Register';
 import Footer from './pages/shared/Footer/Footer';
+import PrivateRoute from './pages/PrivateRoute/PrivateRoute';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -23,8 +24,8 @@ root.render(
    <Routes>
      <Route path="/" element={<Home/>}/>
      <Route path="/home" element={<Home/>}/>
-     <Route path="/addInfo" element={<InfoAdd/>}/>
-     <Route path="/customerList" element={<CustomerList/>}/>
+     <Route path="/addInfo" element={<PrivateRoute><InfoAdd/></PrivateRoute>}/>
+     <Route path="/customerList" element={<PrivateRoute><CustomerList/></PrivateRoute>}/>
      <Route path="/login" element={<Login/>}/>
      <Route path="/register" element={<Register/>}/>
      <Route path="*" element={<Error/>}/>

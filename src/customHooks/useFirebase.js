@@ -19,7 +19,6 @@ import firebaseInitialize from "../firebase/firebase.init";
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
-    const [language, setLanguage] = useState("English");
     const googleSignIn = (navigate, location) => {
       // setIsLoading(true);
       signInWithPopup(auth, provider)
@@ -122,17 +121,12 @@ import firebaseInitialize from "../firebase/firebase.init";
           // An error happened.
         });
     };
-  
-  
-  
     
   
     return {
       googleSignIn,
       user,
       userLogout,
-      language,
-      setLanguage,
       isLoading,
       error,
       success,
