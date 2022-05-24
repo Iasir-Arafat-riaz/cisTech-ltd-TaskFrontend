@@ -1,14 +1,16 @@
 import React from "react";
 import { Nav, Navbar } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
+import useFirebase from "../../../customHooks/useFirebase";
 import "./Navigation.css";
 
 const Navigation = () => {
+  const { user, userLogout } = useFirebase();
   const navigate = useNavigate();
   const handleLogin = () => {
     navigate("/login");
   };
-  const user = { user: "user" };
+  
 
   return (
     <>
@@ -34,9 +36,9 @@ const Navigation = () => {
         </Navbar.Collapse>
 
         {/* </Container> */}
-        {/* <h6  className="text-light">{user.displayName}</h6> */}
+        <h6  className="text-light">{user.displayName}</h6>
         {user?.displayName ? (
-          <button className="logoutButton">
+          <button onClick={userLogout} className="logoutButton">
             <b>Logout</b>
           </button>
         ) : (

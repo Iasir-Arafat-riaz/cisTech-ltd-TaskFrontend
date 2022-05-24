@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
-
+import { Button, Table } from "react-bootstrap";
+import "./CustomerList.css";
 const customerList = [
   {
     full_name: "Iasir Arafat Riaz",
@@ -26,48 +26,101 @@ const customerList = [
 ];
 const CustomerList = () => {
   const [details, setDetails] = useState([]);
-  const [searchDetals,setSearchDetails]=useState([])
+  const [data, setData] = useState([]);
+  const [searchDetals, setSearchDetails] = useState("");
 
   useEffect(() => {
-    fetch("./customer.json")
+    fetch("https://peaceful-plains-87228.herokuapp.com/customerDetails")
       .then((res) => res.json())
-      .then((data) => setDetails(data));
+      .then((data) => {
+        setDetails([...data])
+        setData([...data])
+      });
   }, []);
-  const searchByName=(e)=>{
-      console.log(e.target.value)
-     setSearchDetails(e.target.value)
-  }
-  const search =details.filter(detai=>detai.full_name.toLowerCase().includes(searchDetals.toLowerCase())) 
-  return (
-    <div>
-      <h1>CustomerList</h1>
+  
+  const searchByName = (value) => {
+    setSearchDetails(value);
+    filterData(value);
+  };
 
-      <Table striped bordered hover>
+  const filterData = (value) => {
+    const lowerCase = value.toLowerCase().trim();
+    if (!lowerCase) {
+      setDetails(data);
+    } else {
+      const filteredData = details.filter((item) => {
+        return Object.keys(item).some((key) => {
+          return item[key].toString().toLowerCase().includes(lowerCase);
+        });
+      });
+      setDetails(filteredData);
+    }
+  };
+
+  const removeInfo = (id) => {
+    const uri = `https://peaceful-plains-87228.herokuapp.com/customerDetails/${id}`;
+    const exist = window.confirm("Are You sure want to delete ??");
+    if (exist) {
+      fetch(uri, {
+        method: "DELETE",
+      })
+        .then()
+        .then((data) => {
+            console.log(data.status);
+            if (data.status==200) {
+               const remainingInfo = details.filter(info=>info._id!==id)
+               setDetails(remainingInfo)
+              }
+        });
+    }
+  };
+
+  return (
+    <div className="mb-5">
+      <h1 className="text-center">CustomerList</h1>
+
+      <div id="searchField">
+        <input
+          onChange={(e) => searchByName(e.target.value)}
+          value={searchDetals}
+          placeholder="seach from here"
+          type="text"
+        />
+        <button onClick={() => window.location.reload()}>Reload</button>
+        <br />
+        {details.length === 0 && <span>No Data Found</span>}
+      </div>
+      <Table className="tableBody" striped bordered hover>
         <thead>
           <tr>
             <th>#</th>
-            <th>
-              Full Name <input onChange={searchByName} placeholder="seach by name" type="text" />
-            </th>
+            <th>Full Name</th>
             <th>Phone</th>
             <th>Email</th>
             <th>Address</th>
             <th>Date of Birth</th>
           </tr>
         </thead>
-        <tbody>
-          {search.map((detail, id) => (
+        <tbody >
+          {details.map((detail, id) => (
             <tr>
               <td>{id + 1}</td>
-              <td>{detail.full_name}</td>
-              <td>{detail.phone}</td>
-              <td>{detail.email}</td>
-              <td>{detail.address}</td>
-              <td>{detail.date_of_birth}</td>
+              <td>{detail?.full_name}</td>
+              <td>{detail?.phone}</td>
+              <td>{detail?.email}</td>
+              <td>{detail?.address}</td>
+              <td>{detail?.date_of_birth}</td>
+              <Button
+                onClick={() => removeInfo(detail?._id)}
+                variant="outline-danger"
+              >
+                Remove
+              </Button>
             </tr>
           ))}
         </tbody>
       </Table>
+     
     </div>
   );
 };

@@ -11,6 +11,9 @@ import InfoAdd from './pages/InfoAdd/InfoAdd';
 import Error from './pages/Error/Error';
 import Navigation from './pages/shared/Navigation/Navigation';
 import CustomerList from './pages/CustomerList/CustomerList';
+import Login from './pages/Login/Login';
+import Register from './pages/Login/Register/Register';
+import Footer from './pages/shared/Footer/Footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,8 +25,11 @@ root.render(
      <Route path="/home" element={<Home/>}/>
      <Route path="/addInfo" element={<InfoAdd/>}/>
      <Route path="/customerList" element={<CustomerList/>}/>
+     <Route path="/login" element={<Login/>}/>
+     <Route path="/register" element={<Register/>}/>
      <Route path="*" element={<Error/>}/>
    </Routes>
+   <Footer/>
    </BrowserRouter>
   </div>
  
