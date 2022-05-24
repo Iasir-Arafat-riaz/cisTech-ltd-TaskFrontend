@@ -134,9 +134,11 @@ const CustomerList = () => {
         </tbody>
       </Table>
       <div className="pagination">
-        {[...Array(pageCount).keys()].map((num) => (
+       <div>
+       {[...Array(pageCount).keys()].map((num) => (
           <Button key={num} className={num===page?"selected":""} onClick={()=>setPage(num)} >{num + 1}</Button>
         ))}
+       </div>
       </div>
     </div>
   );
