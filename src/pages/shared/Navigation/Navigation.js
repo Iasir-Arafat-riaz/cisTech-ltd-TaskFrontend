@@ -15,9 +15,7 @@ const Navigation = () => {
   return (
     <>
       <Navbar className="navigation" bg="dark" variant="dark" expand="lg">
-        {/* <Container> */}
-        {/* <Navbar.Brand className="mx-3" href="#home"></Navbar.Brand> */}
-        {/* <NavLink id="com" to="/"><b>SoftzinoTechnologies</b></NavLink> */}
+       
         <h4 id="com">CIS Tech LTD</h4>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

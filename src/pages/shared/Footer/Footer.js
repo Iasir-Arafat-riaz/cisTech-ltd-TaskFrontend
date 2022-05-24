@@ -52,7 +52,7 @@ const Footer = () => {
       <hr />
       <p className="text-center">
         <small>
-          &copy;Copyright © 2022 Softzino Technologies.
+          &copy;Copyright © 2022 CIS Tech LTD.
         </small>
       </p>
     </div>
