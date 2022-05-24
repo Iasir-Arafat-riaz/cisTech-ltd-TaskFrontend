@@ -7,3 +7,10 @@
 .tableBody{
     margin: 10px;
 }
+.pagination button{
+    margin-left: 10px;
+}
+.selected{
+    background-color: brown;
+    color: aquamarine;
+}

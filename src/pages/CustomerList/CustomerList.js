@@ -29,19 +29,25 @@ const CustomerList = () => {
   const [details, setDetails] = useState([]);
   const [data, setData] = useState([]);
   const [searchDetals, setSearchDetails] = useState("");
-  const [loading,setLoading]=useState(true)
+  const [loading, setLoading] = useState(true);
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(0);
 
+  const size=5
   useEffect(() => {
-    setLoading(true)
-    fetch("https://peaceful-plains-87228.herokuapp.com/customerDetails")
+    setLoading(true);
+    fetch(`https://peaceful-plains-87228.herokuapp.com/customerDetails?page=${page}&&size=${size}`)
       .then((res) => res.json())
       .then((data) => {
-        setDetails([...data])
-        setData([...data])
-        setLoading(false)
+        setDetails([...data.result]);
+        setData([...data.result]);
+        const count = data.count;
+        const pageNum = Math.ceil(count / size);
+        setPageCount(pageNum);
+        setLoading(false);
       });
-  }, []);
-  
+  }, [page]);
+
   const searchByName = (value) => {
     setSearchDetails(value);
     filterData(value);
@@ -70,16 +76,16 @@ const CustomerList = () => {
       })
         .then()
         .then((data) => {
-            console.log(data.status);
-            if (data.status==200) {
-               const remainingInfo = details.filter(info=>info._id!==id)
-               setDetails(remainingInfo)
-              }
+          console.log(data.status);
+          if (data.status == 200) {
+            const remainingInfo = details.filter((info) => info._id !== id);
+            setDetails(remainingInfo);
+          }
         });
     }
   };
-  if(loading){
-    return <Loader/>
+  if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -108,7 +114,7 @@ const CustomerList = () => {
             <th>Date of Birth</th>
           </tr>
         </thead>
-        <tbody >
+        <tbody>
           {details.map((detail, id) => (
             <tr>
               <td>{id + 1}</td>
@@ -127,7 +133,11 @@ const CustomerList = () => {
           ))}
         </tbody>
       </Table>
-     
+      <div className="pagination">
+        {[...Array(pageCount).keys()].map((num) => (
+          <Button key={num} className={num===page?"selected":""} onClick={()=>setPage(num)} >{num + 1}</Button>
+        ))}
+      </div>
     </div>
   );
 };
